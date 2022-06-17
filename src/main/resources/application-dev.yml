@@ -1,0 +1,7 @@
+server:
+  port: 9090
+
+# 设置加解密的默认key
+encryptkey:
+    defaultKey: abcdefghgkmnprstwxyz123456789
+
