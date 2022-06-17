@@ -1,7 +1,6 @@
-package com.platform;
+package com.tdcq.platform;
 
-import com.platform.config.EncryptProperties;
-import com.platform.domain.RespBean;
+import com.tdcq.platform.config.EncryptProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;

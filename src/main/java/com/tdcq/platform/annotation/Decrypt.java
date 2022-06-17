@@ -1,4 +1,4 @@
-package com.platform.annotation;
+package com.tdcq.platform.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

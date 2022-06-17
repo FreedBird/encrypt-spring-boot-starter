@@ -1,2 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.platform.config.EncryptAutoConfiguration
-#org.springframework.context.ApplicationContextInitializer=com.platform.config.EncryptAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.tdcq.platform.config.EncryptAutoConfiguration
+#org.springframework.context.ApplicationContextInitializer=EncryptAutoConfiguration

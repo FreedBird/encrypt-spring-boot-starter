@@ -1,4 +1,4 @@
-package com.platform.enums;
+package com.tdcq.platform.enums;
 
 
 /**

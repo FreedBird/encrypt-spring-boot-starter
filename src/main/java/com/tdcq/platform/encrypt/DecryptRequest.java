@@ -1,8 +1,8 @@
-package com.platform.encrypt;
+package com.tdcq.platform.encrypt;
 
-import com.platform.annotation.Decrypt;
-import com.platform.config.EncryptProperties;
-import com.platform.encrypt.utils.AESUtils;
+import com.tdcq.platform.annotation.Decrypt;
+import com.tdcq.platform.config.EncryptProperties;
+import com.tdcq.platform.encrypt.utils.AESUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.MethodParameter;

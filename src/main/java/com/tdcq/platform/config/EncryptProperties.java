@@ -1,4 +1,4 @@
-package com.platform.config;
+package com.tdcq.platform.config;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;

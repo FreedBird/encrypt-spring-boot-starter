@@ -1,4 +1,4 @@
-package com.platform.encrypt.utils;
+package com.tdcq.platform.encrypt.utils;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;

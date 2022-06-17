@@ -1,4 +1,4 @@
-package com.platform.domain;
+package com.tdcq.platform.domain;
 
 
 import java.util.HashMap;

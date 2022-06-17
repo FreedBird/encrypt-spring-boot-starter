@@ -1,10 +1,10 @@
-package com.platform.encrypt;
+package com.tdcq.platform.encrypt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.platform.annotation.Encrypt;
-import com.platform.config.EncryptProperties;
-import com.platform.domain.RespBean;
-import com.platform.encrypt.utils.AESUtils;
+import com.tdcq.platform.annotation.Encrypt;
+import com.tdcq.platform.config.EncryptProperties;
+import com.tdcq.platform.domain.RespBean;
+import com.tdcq.platform.encrypt.utils.AESUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.MethodParameter;
@@ -12,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
