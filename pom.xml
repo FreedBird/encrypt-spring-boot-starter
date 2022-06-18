@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.tdcq</groupId>
     <artifactId>encrypt-spring-boot-starter</artifactId>
-    <version>0.0.1-release</version>
+    <version>1.0.1-release</version>
     <name>encrypt-spring-boot-starter</name>
     <description>interface encrypt project for Spring Boot</description>
 
