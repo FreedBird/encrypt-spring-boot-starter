@@ -1,9 +1,10 @@
 package com.tdcq.platform.encrypt;
 
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
+import cn.hutool.crypto.symmetric.SymmetricCrypto;
 import com.tdcq.platform.annotation.Decrypt;
 import com.tdcq.platform.config.EncryptProperties;
-import com.tdcq.platform.encrypt.utils.AESUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
@@ -24,9 +25,6 @@ import java.lang.reflect.Type;
 @ControllerAdvice
 public class DecryptRequest extends RequestBodyAdviceAdapter {
 
-    @Autowired
-    private EncryptProperties encryptProperties;
-
     @Override
     public boolean supports(MethodParameter methodParameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
         return methodParameter.hasMethodAnnotation(Decrypt.class) || methodParameter.hasParameterAnnotation(Decrypt.class);
@@ -35,10 +33,17 @@ public class DecryptRequest extends RequestBodyAdviceAdapter {
     @Override
     public HttpInputMessage beforeBodyRead(final HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) throws IOException {
         byte[] body = new byte[inputMessage.getBody().available()];
-        inputMessage.getBody().read(body);
+//        inputMessage.getBody().read(body);
         try {
-            byte[] decrypt = AESUtils.decrypt(body, encryptProperties.getDefaultKey().getBytes());
-            final ByteArrayInputStream bais = new ByteArrayInputStream(decrypt);
+            //随机生成密钥
+            byte[] decrypt = SecureUtil.generateKey(SymmetricAlgorithm.AES.getValue()).getEncoded();
+            //构建
+            SymmetricCrypto aes = new SymmetricCrypto(SymmetricAlgorithm.AES, decrypt);
+            //加密
+//            byte[] decrypt = aes.decrypt(body);
+
+//            byte[] decrypt = AESUtils.decrypt(body, key.getBytes());
+            final ByteArrayInputStream bais = new ByteArrayInputStream(aes.decrypt(body));
             return new HttpInputMessage() {
                 @Override
                 public InputStream getBody() {

@@ -13,13 +13,14 @@ import org.springframework.stereotype.Component;
 @PropertySource(value = {"classpath:application-dev.yml"})
 public class EncryptProperties {
 
-    private String defaultKey;
+    private final static String DEFAULT_KEY = "www.itboyhub.com";
+    private String key = DEFAULT_KEY;
 
-    public String getDefaultKey() {
-        return defaultKey;
+    public String getKey() {
+        return key;
     }
 
-    public void setDefaultKey(String defaultKey) {
-        this.defaultKey = defaultKey;
+    public void setKey(String key) {
+        this.key = key;
     }
 }

@@ -1,11 +1,12 @@
 package com.tdcq.platform.encrypt;
 
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
+import cn.hutool.crypto.symmetric.SymmetricCrypto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tdcq.platform.annotation.Encrypt;
 import com.tdcq.platform.config.EncryptProperties;
-import com.tdcq.platform.domain.RespBean;
-import com.tdcq.platform.encrypt.utils.AESUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tdcq.platform.domain.AjaxResult;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -20,12 +21,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  */
 @EnableConfigurationProperties(EncryptProperties.class)
 @ControllerAdvice
-public class EncryptResponse implements ResponseBodyAdvice<RespBean> {
+public class EncryptResponse implements ResponseBodyAdvice<AjaxResult> {
 
-    @Autowired
-    private EncryptProperties encryptProperties;
-
-    private ObjectMapper om = new ObjectMapper();
+    private final ObjectMapper om = new ObjectMapper();
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
@@ -33,14 +31,17 @@ public class EncryptResponse implements ResponseBodyAdvice<RespBean> {
     }
 
     @Override
-    public RespBean beforeBodyWrite(RespBean body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        byte[] keyBytes = encryptProperties.getDefaultKey().getBytes();
+    public AjaxResult beforeBodyWrite(AjaxResult body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         try {
-            if (body.getMsg() != null) {
-                body.setMsg(AESUtils.encrypt(body.getMsg().getBytes(), keyBytes));
-            }
-            if (body.getObj() != null) {
-                body.setObj(AESUtils.encrypt(om.writeValueAsBytes(body.getObj()), keyBytes));
+            if (body != null) {
+                //随机生成密钥
+                byte[] encrypt = SecureUtil.generateKey(SymmetricAlgorithm.AES.getValue()).getEncoded();
+                //构建
+                SymmetricCrypto aes = new SymmetricCrypto(SymmetricAlgorithm.AES, encrypt);
+                Object data = body.get("data");
+
+                byte[] bytes = om.writeValueAsBytes(data);
+                body.put("data", aes.encrypt(bytes));
             }
         } catch (Exception e) {
             e.printStackTrace();

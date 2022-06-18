@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <hutool.version>5.6.7</hutool.version>
     </properties>
 
     <dependencies>
@@ -35,6 +36,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <!--hutool 工具包 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
 
         <dependency>
